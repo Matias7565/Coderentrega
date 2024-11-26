@@ -1,0 +1,37 @@
+document.getElementById('loanForm').addEventListener('submit', function(event) {
+    event.preventDefault(); // Evitar el envío del formulario
+    
+    // Obtener los valores del formulario
+    const amount = parseFloat(document.getElementById('amount').value);
+    const interest = parseFloat(document.getElementById('interest').value);
+    const terms = parseInt(document.getElementById('terms').value);
+    
+    // Llamar a la función para calcular los pagos mensuales
+    const monthlyPayments = calculateMonthlyPayments(amount, interest, terms);
+    
+    // Calcular el total a pagar sumando los pagos mensuales
+    const totalPayment = monthlyPayments.reduce((total, payment) => total + payment, 0);
+    
+    // Mostrar el total a pagar
+    document.getElementById('result').innerText = `Total a pagar: $${totalPayment.toFixed(2)}`;
+    
+    // Mostrar los pagos mensuales en la lista
+    const paymentsList = document.getElementById('monthlyPaymentsList');
+    paymentsList.innerHTML = ''; // Limpiar lista previa
+    monthlyPayments.forEach((payment, index) => {
+        const listItem = document.createElement('li');
+        listItem.innerText = `Cuota ${index + 1}: $${payment.toFixed(2)}`;
+        paymentsList.appendChild(listItem);
+    });
+});
+
+// Función para calcular los pagos mensuales
+function calculateMonthlyPayments(amount, interest, terms) {
+    const monthlyInterestRate = (interest / 100) / 12; // Tasa de interés mensual
+    const monthlyPayment = (amount * monthlyInterestRate) / (1 - Math.pow(1 + monthlyInterestRate, -terms));
+    
+    // Crear un array para almacenar los pagos mensuales
+    const monthlyPayments = Array(terms).fill(monthlyPayment);  // Llenar el array con el valor de cada cuota mensual
+    
+    return monthlyPayments; // Retornar el array de pagos mensuales
+}

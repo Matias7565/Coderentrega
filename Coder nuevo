@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simulador de Créditos</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <h1>Simulador de Créditos</h1>
+    <form id="loanForm">
+        <label for="amount">Monto del préstamo:</label>
+        <input type="number" id="amount" required>
+        
+        <label for="interest">Tasa de interés (%):</label>
+        <input type="number" id="interest" required>
+        
+        <label for="terms">Número de cuotas:</label>
+        <input type="number" id="terms" required>
+
+        <button type="submit">Calcular</button>
+    </form>
+
+    <h2 id="result"></h2>
+    <ul id="monthlyPaymentsList"></ul>
+
+    <script src="js/miarchivo.js"></script>
+</body>
+</html>
